@@ -1,0 +1,88 @@
+<script src="__PUBLIC__uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__uploadify/uploadify.css">
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加商品</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="">  
+      <div class="form-group">
+        <div class="label">
+          <label>商品名字 ：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="" name="title" data-validate="required:商品名" />
+          <div class="tips"></div>
+        </div>
+      </div>
+       <div class="form-group">
+         <div class="label">
+            <label>商品分类：</label>
+          </div>
+            <div class="field">
+                <select name="cid" class="input w50" id="cid">
+                  <option value="">请选择商品分类</option>
+                  <option value=""></option>
+            </select>
+          </div>  
+       </div>
+      <div class="form-group">
+        <div class="label">
+          <label>图片：</label>
+        </div>
+        <div class="field">
+         <input id="file_upload" name="file_upload" type="file" multiple="true" value="+ 浏览上传">
+          <div id="queue"></div>
+        </div>
+      </div>
+     
+      <div class="form-group">
+        <div class="label">
+          <label>描述：</label>
+        </div>
+        <div class="field">
+          <textarea class="input" name="note" style=" height:90px;"></textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+    <div class="form-group content">
+      <label for="content" class="label">内容</label>
+         <div class="field">
+             <!-- 加载编辑器的容器 -->
+            <script id="editor_id" name="content" type="text/plain" style="height: 200px;width: 99.8%"></script>
+           
+            <!-- 配置文件 -->
+            <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+            <!-- 编辑器源码文件 -->
+            <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+            <!-- 实例化编辑器 -->
+            <script type="text/javascript">
+            var ue = UE.getEditor('editor_id');
+            </script>
+          </div>   
+      </div>
+      <div class="clear"></div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    <?php $timestamp = time();?>
+    $(function() {
+      $('#file_upload').uploadify({
+        'formData'     : {
+          'timestamp' : '<?php echo $timestamp;?>',
+          'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+        },
+        'swf'      : '__PUBLIC__uploadify/uploadify.swf',
+        'uploader' : 'bottom bg-blue',
+        'bottomText'  :   '+ 浏览上传'
+      });
+    });
+  </script>
